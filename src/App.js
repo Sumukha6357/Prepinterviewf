@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import Interview from './pages/Interview';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
+import ChangePassword from './pages/ChangePassword';
 
 // Wrapper component to conditionally show Navbar
 // What: This component wraps all routes
@@ -26,6 +28,8 @@ const AppWrapper = () => {
         <Route path="/interview/:type" element={<Interview />} /> {/* Dynamic Interview page */}
         <Route path="/login" element={<Login />} /> {/* Login page */}
         <Route path="/signup" element={<Signup />} /> {/* Signup page */}
+        <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Forgot Password page */}
+        <Route path="/change-password" element={<ChangePassword />} /> {/* Change Password page */}
       </Routes>
     </>
   );
