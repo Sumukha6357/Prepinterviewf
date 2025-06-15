@@ -3,13 +3,12 @@ import { useLocation } from "react-router-dom";
 import { registerCandidate, registerAdmin } from "../api/userApi";
 
 function Signup() {
-  // Get role from URL query parameter
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const role = params.get("role") || "candidate"; // default to candidate
+  const role = params.get("role") || "candidate";
 
   const [formData, setFormData] = useState({
-    username: "",
+    userName: "",
     email: "",
     password: "",
   });
@@ -34,6 +33,10 @@ function Signup() {
         response = await registerCandidate(formData);
       }
       setMessage(response.data.message || "Registration successful!");
+      localStorage.setItem("userName", response.data.data.userName || formData.userName);
+      // localStorage.setItem("isLoggedIn", "true");
+      window.dispatchEvent(new Event("storage"));
+      
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -51,16 +54,14 @@ function Signup() {
           Sign Up as {role.charAt(0).toUpperCase() + role.slice(1)}
         </h2>
         <form onSubmit={handleRegister}>
-          {/* Username */}
           <input
             name="userName"
             value={formData.userName}
             onChange={handleChange}
-            placeholder="UserName"
+            placeholder="User Name"
             className="w-full mb-3 p-2 border rounded"
             required
           />
-          {/* Email */}
           <input
             name="email"
             type="email"
@@ -70,7 +71,6 @@ function Signup() {
             className="w-full mb-3 p-2 border rounded"
             required
           />
-          {/* Password */}
           <input
             name="password"
             type="password"

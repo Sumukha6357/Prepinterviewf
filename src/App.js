@@ -7,9 +7,10 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Interview from './pages/Interview';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Signup from "./pages/Signup";
 import ForgotPassword from './pages/ForgotPassword';
 import ChangePassword from './pages/ChangePassword';
+import Profile from "./pages/Profile";
 
 // Wrapper component to conditionally show Navbar
 // What: This component wraps all routes
@@ -17,7 +18,7 @@ import ChangePassword from './pages/ChangePassword';
 // When: Needed to hide navbar on login/signup pages
 const AppWrapper = () => {
   const location = useLocation(); // Get current URL path
-  const hideNavbarOn = ['/login', '/signup']; // Routes where Navbar should be hidden
+  const hideNavbarOn = []; // Routes where Navbar should be hidden
   const showNavbar = !hideNavbarOn.includes(location.pathname); // If not in the hide list, show navbar
 
   return (
@@ -30,6 +31,7 @@ const AppWrapper = () => {
         <Route path="/signup" element={<Signup />} /> {/* Signup page */}
         <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Forgot Password page */}
         <Route path="/change-password" element={<ChangePassword />} /> {/* Change Password page */}
+        <Route path="/profile" element={<Profile />} /> {/* Profile page */}
       </Routes>
     </>
   );
