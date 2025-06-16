@@ -34,9 +34,7 @@ function Signup() {
       }
       setMessage(response.data.message || "Registration successful!");
       localStorage.setItem("userName", response.data.data.userName || formData.userName);
-      // localStorage.setItem("isLoggedIn", "true");
       window.dispatchEvent(new Event("storage"));
-      
     } catch (err) {
       setError(
         err.response?.data?.message ||

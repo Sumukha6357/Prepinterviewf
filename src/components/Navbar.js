@@ -1,34 +1,21 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const [showSignupDropdown, setShowSignupDropdown] = useState(false);
   const [showLoginDropdown, setShowLoginDropdown] = useState(false);
+  const [showSignupDropdown, setShowSignupDropdown] = useState(false);
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [editingUsername, setEditingUsername] = useState(false);
   const [newUserName, setNewUserName] = useState("");
+  const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
+
   const loginDropdownRef = useRef(null);
   const signupDropdownRef = useRef(null);
   const profileCardRef = useRef(null);
   const navigate = useNavigate();
 
-  // Track login state
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
-  const [userName, setUserName] = useState(localStorage.getItem("userName"));
-
-  // Listen for login changes (optional, for logout from other tabs)
-  useEffect(() => {
-    const onStorage = () => {
-      setUserName(localStorage.getItem("userName"));
-      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
-
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -61,25 +48,48 @@ function Navbar() {
     };
   }, [showLoginDropdown, showSignupDropdown, showProfileCard]);
 
-  // Logout handler
+  useEffect(() => {
+    function syncUser() {
+      setUserName(localStorage.getItem("userName") || "");
+      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+    }
+    window.addEventListener("storage", syncUser);
+    return () => window.removeEventListener("storage", syncUser);
+  }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("role");
     setIsLoggedIn(false);
+    setUserName("");
+    setShowProfileCard(false);
+    // Set theme to light on logout
+    setDarkMode(false);
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
     navigate("/");
+    window.dispatchEvent(new Event("storage"));
   };
 
-  // Mock function to simulate user name update
-  const updateUserName = async (newName) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        localStorage.setItem("userName", newName);
-        resolve();
-      }, 1000);
-    });
-  };
+  // Dummy updateUserName function for demonstration
+  async function updateUserName(newName) {
+    // Replace with your API call
+    return new Promise((resolve) => setTimeout(resolve, 500));
+  }
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white shadow">
+    <nav className="relative flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow">
       <div
         className="text-xl font-bold text-blue-700 cursor-pointer select-none"
         onClick={() => navigate("/")}
@@ -130,7 +140,7 @@ function Navbar() {
                 </div>
               )}
             </div>
-            {/* Sign up Dropdown */}
+            {/* Signup Dropdown */}
             <div className="relative" ref={signupDropdownRef}>
               <button
                 className="bg-blue-600 text-white px-6 py-2 rounded-full shadow hover:bg-blue-700 transition font-semibold"
@@ -173,8 +183,13 @@ function Navbar() {
           </>
         )}
         {isLoggedIn && (
-          <div className="relative" ref={profileCardRef}>
-            
+          <div className="relative flex items-center gap-2" ref={profileCardRef}>
+            <button
+              className="ml-2 px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100"
+              onClick={() => setDarkMode((prev) => !prev)}
+            >
+              {darkMode ? "🌙 Dark" : "☀️ Light"}
+            </button>
             <button
               className="bg-gray-100 text-blue-700 px-6 py-2 rounded-full shadow font-semibold"
               onClick={() => setShowProfileCard((prev) => !prev)}
@@ -187,13 +202,13 @@ function Navbar() {
             >
               Logout
             </button>
+            
             {showProfileCard && (
-              <div className="absolute right-0 mt-2 w-64 bg-white border border-blue-100 rounded-xl shadow-lg z-30 p-4 animate-fade-in">
+              <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 border border-blue-100 rounded-xl shadow-lg z-30 p-4 animate-fade-in">
                 <div className="font-bold text-blue-700 mb-2">Profile</div>
                 <div className="mb-2">
                   <span className="font-semibold">User Name:</span> {userName || "Unknown"}
                 </div>
-                {/* Inline Change Username */}
                 {!editingUsername ? (
                   <button
                     className="w-full text-left text-blue-600 hover:underline mt-2"
@@ -214,6 +229,7 @@ function Navbar() {
                         localStorage.setItem("userName", newUserName);
                         setUserName(newUserName);
                         setEditingUsername(false);
+                        window.dispatchEvent(new Event("storage"));
                       } catch {
                         // handle error
                       }

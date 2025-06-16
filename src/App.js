@@ -22,7 +22,7 @@ const AppWrapper = () => {
   const showNavbar = !hideNavbarOn.includes(location.pathname); // If not in the hide list, show navbar
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       {showNavbar && <Navbar />} {/* Show Navbar only on selected routes */}
       <Routes>
         <Route path="/" element={<Home />} /> {/* Home page */}
@@ -33,7 +33,7 @@ const AppWrapper = () => {
         <Route path="/change-password" element={<ChangePassword />} /> {/* Change Password page */}
         <Route path="/profile" element={<Profile />} /> {/* Profile page */}
       </Routes>
-    </>
+    </div>
   );
 };
 

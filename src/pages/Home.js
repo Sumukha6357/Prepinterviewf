@@ -21,8 +21,7 @@ function Home() {
     }
   }, [location]);
 
-  useEffect(() => {
-  }, [role, navigate]);
+  useEffect(() => {}, [role, navigate]);
 
   const handleStartAptitude = async () => {
     try {
@@ -56,7 +55,7 @@ function Home() {
   };
 
   return (
-    <div className="p-6 text-center">
+    <div className="p-6 text-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <h1 className="text-2xl font-bold text-blue-600">
         {isLoggedIn
           ? `Welcome to InterviewPrep, ${userName || "User"}!`
@@ -70,8 +69,10 @@ function Home() {
           </h2>
           <div className="flex flex-col md:flex-row gap-8 justify-center">
             {/* Aptitude */}
-            <div className="bg-white shadow rounded-lg p-6 flex-1 text-center">
-              <h3 className="text-xl font-semibold mb-2 text-blue-600">Aptitude</h3>
+            <div className="bg-white shadow rounded-lg p-6 flex-1 text-center dark:bg-gray-800 dark:text-white">
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">
+                Aptitude
+              </h3>
               <p className="mb-4">
                 Sharpen your logical, quantitative, and verbal skills with our
                 aptitude questions.
@@ -84,8 +85,10 @@ function Home() {
               </button>
             </div>
             {/* Technical */}
-            <div className="bg-white shadow rounded-lg p-6 flex-1 text-center">
-              <h3 className="text-xl font-semibold mb-2 text-blue-600">Technical</h3>
+            <div className="bg-white shadow rounded-lg p-6 flex-1 text-center dark:bg-gray-800 dark:text-white">
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">
+                Technical
+              </h3>
               <p className="mb-4">
                 Practice coding, algorithms, and core technical concepts for
                 interviews.
@@ -98,12 +101,13 @@ function Home() {
               </button>
             </div>
             {/* Aptitude & Technical */}
-            <div className="bg-white shadow rounded-lg p-6 flex-1 text-center">
+            <div className="bg-white shadow rounded-lg p-6 flex-1 text-center dark:bg-gray-800 dark:text-white">
               <h3 className="text-xl font-semibold mb-2 text-blue-600">
                 Aptitude & Technical
               </h3>
               <p className="mb-4">
-                Challenge yourself with a mix of aptitude and technical questions.
+                Challenge yourself with a mix of both aptitude and technical
+                questions.
               </p>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -117,8 +121,26 @@ function Home() {
       )}
 
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 w-full flex justify-between items-center px-6 py-6 bg-white border-t border-gray-200 text-lg z-40">
-        <div className="text-gray-500">&copy; {new Date().getFullYear()} InterviewPrep</div>
+      <footer className="fixed bottom-0 left-0 w-full flex justify-between items-center px-6 py-6 bg-white border-t border-gray-200 text-lg z-40 dark:bg-gray-900 dark:text-white">
+        <div className="text-gray-500">
+          &copy; {new Date().getFullYear()} InterviewPrep
+        </div>
+        <div className="text-gray-700 dark:text-gray-300 mb-2">
+          <span className="inline-flex items-center">
+            <svg
+              className="w-5 h-5 mr-1 text-blue-600 inline"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 2a6 6 0 016 6c0 4.418-6 10-6 10S4 12.418 4 8a6 6 0 016-6zm0 8a2 2 0 100-4 2 2 0 000 4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Address: JSpiders Basavanagudi, Bengaluru
+          </span>
+        </div>
         <div className="flex items-center space-x-6">
           <span className="text-gray-500 font-semibold">Follow us:</span>
           <a
@@ -128,8 +150,12 @@ function Home() {
             className="text-blue-400 hover:text-blue-600 transition"
             title="Twitter"
           >
-            <svg className="w-8 h-8 inline" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M22.46 5.92c-.8.36-1.67.6-2.58.71a4.48 4.48 0 0 0 1.97-2.48 8.94 8.94 0 0 1-2.83 1.08 4.48 4.48 0 0 0-7.64 4.08A12.72 12.72 0 0 1 3.1 4.86a4.48 4.48 0 0 0 1.39 5.98c-.73-.02-1.41-.22-2-.56v.06a4.48 4.48 0 0 0 3.6 4.4c-.34.09-.7.14-1.07.14-.26 0-.51-.02-.76-.07a4.48 4.48 0 0 0 4.18 3.11A9 9 0 0 1 2 19.54a12.7 12.7 0 0 0 6.88 2.02c8.26 0 12.78-6.84 12.78-12.77 0-.19 0-.37-.01-.56A9.22 9.22 0 0 0 24 4.59a8.93 8.93 0 0 1-2.54.7z"/>
+            <svg
+              className="w-8 h-8 inline"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M22.46 5.92c-.8.36-1.67.6-2.58.71a4.48 4.48 0 0 0 1.97-2.48 8.94 8.94 0 0 1-2.83 1.08 4.48 4.48 0 0 0-7.64 4.08A12.72 12.72 0 0 1 3.1 4.86a4.48 4.48 0 0 0 1.39 5.98c-.73-.02-1.41-.22-2-.56v.06a4.48 4.48 0 0 0 3.6 4.4c-.34.09-.7.14-1.07.14-.26 0-.51-.02-.76-.07a4.48 4.48 0 0 0 4.18 3.11A9 9 0 0 1 2 19.54a12.7 12.7 0 0 0 6.88 2.02c8.26 0 12.78-6.84 12.78-12.77 0-.19 0-.37-.01-.56A9.22 9.22 0 0 0 24 4.59a8.93 8.93 0 0 1-2.54.7z" />
             </svg>
           </a>
           <a
@@ -139,8 +165,12 @@ function Home() {
             className="text-blue-700 hover:text-blue-900 transition"
             title="LinkedIn"
           >
-            <svg className="w-8 h-8 inline" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.29c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15.5 10.29h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.76 1.37-1.56 2.82-1.56 3.01 0 3.57 1.98 3.57 4.56v4.77z"/>
+            <svg
+              className="w-8 h-8 inline"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.29c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15.5 10.29h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.76 1.37-1.56 2.82-1.56 3.01 0 3.57 1.98 3.57 4.56v4.77z" />
             </svg>
           </a>
         </div>

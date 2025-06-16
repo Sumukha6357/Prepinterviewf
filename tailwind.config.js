@@ -5,4 +5,5 @@ module.exports = {
     extend: {}, // you can add custom colors/fonts here
   },
   plugins: [],
+  darkMode: 'class',
 }
