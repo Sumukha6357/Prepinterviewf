@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateUserName } from "../api/userApi"; // adjust the path as needed
 
 function Navbar() {
   const [showLoginDropdown, setShowLoginDropdown] = useState(false);
@@ -81,12 +82,6 @@ function Navbar() {
     navigate("/");
     window.dispatchEvent(new Event("storage"));
   };
-
-  // Dummy updateUserName function for demonstration
-  async function updateUserName(newName) {
-    // Replace with your API call
-    return new Promise((resolve) => setTimeout(resolve, 500));
-  }
 
   return (
     <nav className="relative flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow">

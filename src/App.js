@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+
 // Wrapper component to conditionally show Navbar
 // What: This component wraps all routes
 // Why: So we can check the current route

@@ -117,7 +117,7 @@ function Home() {
         </section>
       )}
 
-      {/* About Section */}
+     { /*About Section */ }
       <section
         id="about"
         className="w-full max-w-4xl mb-8 bg-white dark:bg-gray-800 rounded-lg shadow py-12"

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 const API_BASE = "http://localhost:8080";
 
 // Register endpoints
@@ -17,8 +19,11 @@ export const loginCandidate = (email, password) =>
   axios.post(`${API_BASE}/user/candidate-login`, { email, password });
 
 // Update username
-export const updateUserName = (newUsername) =>
-  axios.put(`${API_BASE}/user/changeusername`, null, { params: { newUsername } });
+export const updateUserName = (newUserName) =>
+  axios.put(`${API_BASE}/user/changeusername`, null, {
+    params: { newUsername: newUserName },
+    withCredentials: true,
+  });
 
 // Update password
 export const updatePassword = (newPassword) =>
